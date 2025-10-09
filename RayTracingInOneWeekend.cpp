@@ -40,6 +40,7 @@ int main()
 	//this goes from left to right first, then top to bottom
 	for (int pixelY = 0; pixelY < image_height; pixelY++)
 	{
+		std::clog << "\rScanlines remaining: " << (image_height - pixelY) << ' ' << std::flush;
 		for (int pixelX = 0; pixelX < image_width; pixelX++)
 		{
 			auto coordX = double(pixelX) / (image_width - 1);//gives normalized - to 1 repeating by heights times
@@ -63,6 +64,9 @@ int main()
 
 		}
 	}
+	std::clog << "\rDone.                 \n\n";
+	
+	std::clog << "\rWriting to Disk: " << std::flush;
 	/* stbi_write_png function usage
 	filename -> Output path for the PNG File
 	x -> width of the image in pixels
@@ -72,5 +76,5 @@ int main()
 	stride_bytes -> the number of bytes per row in the image... + optionally some more for padding to do more advanced memory layouts.
 	*/
 	stbi_write_png("Render/Image.png", image_width, image_height, ColorChannels, pixels.data(), stride);
-
+	std::clog << "\rFinished.                 \n";
 }
