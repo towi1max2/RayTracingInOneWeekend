@@ -2,7 +2,7 @@
 #include "Image.h"
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-//$(SolutionDir)Source;%(AdditionalIncludeDirectories) An additional root for the compiler to in for the correct files
+//$(SolutionDir)Source;%(AdditionalIncludeDirectories) An additional root for the compiler to in for the correct files woot 
 #include "ThirdParty/stb_image_write.h"
 
 Image::Image(int Width, int Height, const Color& DefaultValue) : m_Width(Width), m_Height(Height)

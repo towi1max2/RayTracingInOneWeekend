@@ -14,7 +14,7 @@
 int main() 
 {
 
-	// Image
+	// Image woot woot
 
 	int image_width = 1920;
 	int image_height = 1080;
