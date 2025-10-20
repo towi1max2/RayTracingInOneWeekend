@@ -107,6 +107,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,7 +133,9 @@
     <ClCompile Include="Source\Raytracing\Image.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Raytracing\ClassTest.h" />
     <ClInclude Include="Source\Raytracing\Image.h" />
+    <ClInclude Include="Source\Raytracing\Vector.h" />
     <ClInclude Include="Source\ThirdParty\stb_image_write.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

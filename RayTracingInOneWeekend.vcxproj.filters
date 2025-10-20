@@ -35,5 +35,11 @@
     <ClInclude Include="Source\ThirdParty\stb_image_write.h">
       <Filter>Source Files\ThirdParty</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Raytracing\Vector.h">
+      <Filter>Source Files\Raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Raytracing\ClassTest.h">
+      <Filter>Source Files\Raytracing</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
