@@ -35,17 +35,39 @@ public:
         return e[2]; 
     }
 
-    vec3 operator-() const { return vec3(-e[0], -e[1], -e[2]); }
-    double operator[](int i) const { return e[i]; }
-    double& operator[](int i) { return e[i]; }
+    //unary(single input/variable) negation
+    // This returns a copy of the vec3 class type object
+    //-a
+    vec3 operator-() const 
+    {
+        return vec3(-e[0], -e[1], -e[2]); 
+    }
+    //read access on const vec, if the object is const then the compiler will automatically only use this one
+    double operator[](int i) const 
+    { 
+        return e[i]; 
+    }
+    //read/write on mutable vec, if the object is not const then the compiler automatically prefers this one
+    //the reference declarator lets you overwrite the actual object array element
+    //a[i]
+    double& operator[](int i) 
+    { 
+        return e[i]; 
+    }
 
+    // a += b  -> a.operator+=(b);
+    // 
+    //const vec3& v -> the reference is just to avoid unecesary overhead from copying
+    //
+    //const vec3& v -> insures the b read only
     vec3& operator+=(const vec3& v) {
         e[0] += v.e[0];
         e[1] += v.e[1];
         e[2] += v.e[2];
-        return *this; //*this Is the current vec3 object. C++ give you this special pointer by default.
+        return *this; //C++ give you this special pointer by default. This returns the class object the operator is calling from.
     }
 
+    // a *= number#
     vec3& operator*=(double t) {
         e[0] *= t;
         e[1] *= t;
@@ -53,6 +75,7 @@ public:
         return *this;
     }
 
+    // a /= mumber#
     vec3& operator/=(double t) {
         return *this *= 1 / t;
     }

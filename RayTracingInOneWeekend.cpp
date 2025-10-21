@@ -7,49 +7,50 @@
 
 #include "Raytracing/Image.h"
 //#include "Raytracing/Vector.h"
-//#include "Raytracing/ClassTest.h"
+#include "Raytracing/ClassTest.h"
 
-//int main()
-//{
-//	//vec3 TestVector{ 0,2.2,0.1 };
-//
-//	//std::clog << TestVector;
-//
-//	Player Mario{};
-//
-//	std::clog << Mario.returnHealth();
-//
-//	
-//	//vec3 TestVector = vec3(1, 2, 3);
-//	vec3 TestVector(1, 2, 3);
-//
-//	double x = TestVector.x();
-//	double y = TestVector.y();
-//	double z = TestVector.z();
-//	
-//	std::clog << x << " : " << y << " : " << z << "\n\n";
-//
-//	//auto length = TestVector.length();
-//
-//	std::clog << "length " << TestVector.length() << "\n\n";
-//
-//	vec3 V1(1, 2, 3);
-//	vec3 V2(1, 2, 3);
-//
-//	vec3 Output = V1 * V2;
-//
-//	std::clog << Output << "\n\n";
-//
-//	vec3 V3(1, 0, 0);
-//	vec3 V4(-1, 0, 0);
-//
-//	double Product = dot(V3, V4);
-//
-//	std::clog << Product << "\n\n";
-//
-//	std::clog << "\n\nDone.                      \n\n";
-//	
-//}
+void TestVector()
+{
+	//vec3 TestVector{ 0,2.2,0.1 };
+
+	//std::clog << TestVector;
+
+	Player Mario{};
+
+	std::clog << Mario.returnHealth();
+
+	
+	//vec3 TestVector = vec3(1, 2, 3);
+	vec3 TestVector(1, 2, 3);
+
+	double x = TestVector.x();
+	double y = TestVector.y();
+	double z = TestVector.z();
+	
+	std::clog << x << " : " << y << " : " << z << "\n\n";
+
+	//auto length = TestVector.length();
+
+	std::clog << "length " << TestVector.length() << "\n\n";
+
+	vec3 V1(1, 2, 3);
+	vec3 V2(1, 2, 3);
+
+	//vec3 Output = V1 * V2;
+	vec3 Output = -V1;
+
+	std::clog << Output << "\n\n";
+
+	vec3 V3(1, 0, 0);
+	vec3 V4(-1, 0, 0);
+
+	double Product = dot(V3, V4);
+
+	std::clog << Product << "\n\n";
+
+	std::clog << "\n\nDone.                      \n\n";
+	
+}
 
 void MakeImage()
 {
@@ -82,6 +83,7 @@ void MakeImage()
 
 int main()
 {
-	MakeImage();
+	//MakeImage();
+	TestVector();
 }
 
