@@ -37,7 +37,9 @@ void TestVector()
 	vec3 V2(1, 2, 3);
 
 	//vec3 Output = V1 * V2;
-	vec3 Output = -V1;
+	vec3 Output = V2;
+
+	//Output *= 2;
 
 	std::clog << Output << "\n\n";
 
