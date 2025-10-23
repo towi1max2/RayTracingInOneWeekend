@@ -8,21 +8,32 @@
 class Image
 {
 private:
-	int m_Width = 0;
-	int m_Height = 0;
-	std::vector<Color> m_Pixels;//This declares an array that stores vec3 objects
+	//Member variables = The class data
+	int m_Width { 0 };
+	int m_Height { 0 };
+	std::vector<Color> m_Pixels; // declares an empty array of Color(Vec3) objects
+	//std::vector<Color> m_Pixels{ 256 * 256, Color{0.4,2,5} };//hard coding size and values
 
 public:
-	Image() = default;//idk?
+	Image() = default;//Leave the class Data alone, doesnt modify their default values.
 	Image(int Width, int Height, const Color& DefaultValue);//this recieves a direct 
-	~Image() = default;//deconstructor?
+	~Image() = default;//default deconstructor.
 
-	int GetWidth() const { return m_Width; }
-	int GetHeight() const { return m_Height; }
+	int GetWidth() const 
+	{ 
+		return m_Width; 
+	}
+	int GetHeight() const 
+	{ 
+		return m_Height; 
+	}
 
 	void SetPixelAt(int x, int y, const Color& pixel);//set pixel color at a coordinate
-	const Color& GetPixelAt(int x, int y) const; //double const? returns a const color reference. second const wont modify the 
 
+	//avoids copies(returns direct reference), adds a lock on the data returned(CONST - CANNOT MODIFY)
+	const Color& GetPixelAt(int x, int y) const; // second const wont allow function to modify the member variables
+
+	//std::vector<Color> is the data type it returns
 	const std::vector<Color>& GetPixels() const;
 
 };
