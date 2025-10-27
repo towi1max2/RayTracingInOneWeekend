@@ -21,13 +21,14 @@ void Image::SetPixelAt(int x, int y, const Color& pixel)
 	m_Pixels.at(x + y * m_Width) = pixel;
 }
 
+//this function returns an individual Color object in the m_Pixel vector array
 const Color& Image::GetPixelAt(int x, int y) const
 {
 	//returns the direct Color object at a certain index m_Pixel[]
 	return m_Pixels.at(x + y * m_Width);
 }
 
-//this function returns a vector array that holds Color objects
+//this function returns the whole vector array that holds Color objects
 const std::vector<Color>& Image::GetPixels() const
 {
 	//our member variable vector array that holds Color Objects
@@ -38,14 +39,15 @@ const std::vector<Color>& Image::GetPixels() const
 //seperate thing
 void WriteImage(const Image& InputImage, const std::string& FilePath)
 {
-	std::vector<unsigned char> data;//255 ramge
-	constexpr int channels = 4;
-	int size = InputImage.GetHeight() * InputImage.GetWidth() * channels;
-	data.reserve(size);
-	//data.resize(size);
-	for (const Color& px : InputImage.GetPixels())//for each, the getpixels returns a ref to the array which automatically gives you the for each amount.
+	std::vector<unsigned char> data;//declare an empty array of char
+	constexpr int channels = 4;//hard coded value for RGBA channels
+	int size = InputImage.GetHeight() * InputImage.GetWidth() * channels;//Height * Width * 4
+	data.reserve(size);//reserves memory capcity to == size, filled with uninitialized data.
+
+	//px holds the current object being iterated, in this case it cannot be modified and is not being unnecessarily copied
+	for (const Color& px : InputImage.GetPixels())
 	{
-		data.push_back(static_cast<int>(255.999 * px.x()));//gets the 
+		data.push_back(static_cast<int>(255.999 * px.x()));
 		data.push_back(static_cast<int>(255.999 * px.y()));
 		data.push_back(static_cast<int>(255.999 * px.z()));
 		//data.push_back(static_cast<int>(255.999 * px.w));

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <vector>
 #include "Vector.h"
 
@@ -28,7 +29,8 @@ public:
 		return m_Height; 
 	}
 
-	void SetPixelAt(int x, int y, const Color& pixel);//set pixel color at a coordinate
+	//sets a pixel color in a coordinate, this function fills in data for m_Pixel vector array
+	void SetPixelAt(int x, int y, const Color& pixel);
 
 	//avoids copies(returns direct reference), adds a lock on the data returned(CONST - CANNOT MODIFY)
 	const Color& GetPixelAt(int x, int y) const; // second const wont allow function to modify the member variables
@@ -40,4 +42,6 @@ public:
 
 
 //seperate thing, A outside function that writes the info in the image object to a filepath to a png
+//This takes in the class type class above, it does not modify the object going in and does not make an unnecesary copy
+// This also takes in a string variable, it does not modify the string going in and does not make an unnecassary copy.
 void WriteImage(const Image& InputImage, const std::string& FilePath);//stand alone function that uses an image object

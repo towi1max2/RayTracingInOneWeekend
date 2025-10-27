@@ -1,15 +1,15 @@
 
 #include <iostream>
-#include <string>
+//#include <string>
 #include <filesystem>
 
 #include "Raytracing/Image.h"
 
 void MakeImage()
 {
-	int image_width{ 256 };
-	int image_height{ 256 };
-	//int channels{ 4 };
+	constexpr int image_width{ 256 };
+	constexpr int image_height{ 256 };
+	constexpr int channels{ 4 };
 
 	Image ImageObject{ image_width, image_height, Color{0.2,0.5,0.5} };
 	//Image ImageObject{};
@@ -20,8 +20,8 @@ void MakeImage()
 		std::clog << "\rScanlines remaining: " << (image_height - j) << ' ' << std::flush;
 		for (int i{ 0 }; i < image_width; i++) 
 		{
-			double red = double(i) / (image_width - 1);
-			double green = double(j) / (image_height - 1);
+			double red = static_cast<double>(i) / (image_width - 1);
+			double green = static_cast<double>(j) / (image_height - 1);
 
 			ImageObject.SetPixelAt(i, j, Color(red, green, 0));
 			//ImageObject.SetPixelAt(0, 0, Color(1.0, 1.0, 1.0));
