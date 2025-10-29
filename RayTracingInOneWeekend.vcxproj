@@ -131,9 +131,11 @@
   <ItemGroup>
     <ClCompile Include="RayTracingInOneWeekend.cpp" />
     <ClCompile Include="Source\Raytracing\Image.cpp" />
+    <ClCompile Include="Source\Raytracing\Ray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Raytracing\Image.h" />
+    <ClInclude Include="Source\Raytracing\Ray.h" />
     <ClInclude Include="Source\Raytracing\Vector.h" />
     <ClInclude Include="Source\ThirdParty\stb_image_write.h" />
   </ItemGroup>

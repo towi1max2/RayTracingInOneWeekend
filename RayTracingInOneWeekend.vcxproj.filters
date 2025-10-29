@@ -27,6 +27,9 @@
     <ClCompile Include="Source\Raytracing\Image.cpp">
       <Filter>Source Files\Raytracing</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Raytracing\Ray.cpp">
+      <Filter>Source Files\Raytracing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Raytracing\Image.h">
@@ -36,6 +39,9 @@
       <Filter>Source Files\ThirdParty</Filter>
     </ClInclude>
     <ClInclude Include="Source\Raytracing\Vector.h">
+      <Filter>Source Files\Raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Raytracing\Ray.h">
       <Filter>Source Files\Raytracing</Filter>
     </ClInclude>
   </ItemGroup>

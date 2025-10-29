@@ -1,5 +1,7 @@
 #pragma once
 
+//file known as vec3 in the book
+
 #include <cmath>
 #include <iostream>
 
@@ -97,8 +99,8 @@ public:
 };
 
 // point3 is just an alias for vec3, but useful for geometric clarity in the code.
-using point3 = vec3;
 using Color = vec3;
+using Vector3d = vec3;
 
 // 
 inline std::ostream& operator<<(std::ostream& out, const vec3& v) {
