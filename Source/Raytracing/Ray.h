@@ -2,6 +2,7 @@
 
 #include "vector.h"
 
+//just a position & vector
 class Ray
 {
 public:

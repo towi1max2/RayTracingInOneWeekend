@@ -47,9 +47,10 @@ void WriteImage(const Image& InputImage, const std::string& FilePath)
 	//px holds the current object being iterated, in this case it cannot be modified and is not being unnecessarily copied
 	for (const Color& px : InputImage.GetPixels())
 	{
-		data.push_back(static_cast<int>(255.999 * px.x()));
-		data.push_back(static_cast<int>(255.999 * px.y()));
-		data.push_back(static_cast<int>(255.999 * px.z()));
+		//stbi_write_png wraps values if not clamped
+		data.push_back(static_cast<int>(255.999 * std::clamp(px.x(), 0.0, 1.0)));
+		data.push_back(static_cast<int>(255.999 * std::clamp(px.y(), 0.0, 1.0)));
+		data.push_back(static_cast<int>(255.999 * std::clamp(px.z(), 0.0, 1.0)));
 		//data.push_back(static_cast<int>(255.999 * px.w));
 		data.push_back(255);
 	}
