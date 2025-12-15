@@ -39,31 +39,33 @@ void MakeImage()
 	//std::clog << "\n\n" << ImageObject.GetPixelAt(0, 0);
 }
 
-double hit_sphere(const Vector3d& center, double radius, const Ray& r) 
+double hit_sphere(const Vector3d& center, double radius, const Ray& r)
 {
 	Vector3d oc = center - r.GetOrigin();
-	auto a = dot(r.GetDirection(), r.GetDirection());
-	auto b = -2.0 * dot(r.GetDirection(), oc);
-	auto c = dot(oc, oc) - radius * radius;
-	auto discriminant = b * b - 4 * a * c;
-	//return (discriminant >= 0); //cone normal?
+	auto a = r.GetDirection().length_squared();
+	auto h = dot(r.GetDirection(), oc);
+	auto c = oc.length_squared() - radius * radius;
+	auto discriminant = h * h - a * c;
 
+	//no intersection with sphere if < 0
 	if (discriminant < 0) {
 		return -1.0;
 	}
 	else {
-		return (-b - std::sqrt(discriminant)) / (2.0 * a);
+		return (h - std::sqrt(discriminant)) / a;
 	}
 }
 
 Color RayColor(const Ray& r)
 {
-	auto t = hit_sphere(Vector3d(0, 0, -1), 0.5, r);
+	auto t = hit_sphere(Vector3d(0, 0, -1), 0.4, r);
 	if (t > 0.0) {
-		vec3 N = unit_vector(r.at(t) - vec3(0, 0, -1));
+		Vector3d N = unit_vector(r.at(t) - Vector3d(0, 0, -1));
 		return 0.5 * Color(N.x() + 1, N.y() + 1, N.z() + 1);
 	}
 	
+	return Color(0, 0, 1);
+
 	Vector3d UnitDirection = unit_vector(r.GetDirection());//normalize incoming ray direction
 	double a = 0.5 * (UnitDirection.y() + 1.0);//
 	return (1.0 - a) * Color { 1.0, 1.0, 1.0 } + a * Color{ 0.5, 0.7, 1.0 };
@@ -91,7 +93,7 @@ int main()
 	//Arbitrary Viewport Size
 	double ViewportHeight = 1.0;//arbitrary number, size of viewport effects look of image
 	double ViewportWidth = ViewportHeight * (static_cast<double>(ImageWdith)/ImageHeight); //Viewport_Height * Aspect_Ratio
-	Vector3d CameraPosition { 0, 0, 0 };//eye point
+	Vector3d CameraPosition { 0, 0, 0 };//eye point is at 0,0,0
 
 	//Vector across the horizontal right & vector down the vertical virtual viewport
 	Vector3d ViewportU{ ViewportWidth, 0, 0 };
@@ -116,10 +118,15 @@ int main()
 		std::clog << "\rScanlines remaining: " << (ImageHeight - j) << ' ' << std::flush;
 		for (int i{ 0 }; i < ImageWdith; i++)
 		{
-			Vector3d PixelPosition = PixelUpperLeftPos + (i * PixelDeltaU) + (j * PixelDeltaV);//shifts in pixel steps
+			/* 
+			* eyepoint is at (0,0,0)
+			* shifts in pixel steps, from -x to +x and +y to -y
+			* The pixel position is in -z from the eye point
+			*/
+			Vector3d PixelPosition = PixelUpperLeftPos + (i * PixelDeltaU) + (j * PixelDeltaV);
 			Vector3d RayDirection = PixelPosition - CameraPosition;
 
-			Ray r{CameraPosition, RayDirection};//ray from eye point to virtual viewport pixel position
+			Ray r{CameraPosition, RayDirection};//Returns a Color from vector data
 
 			ImageObject.SetPixelAt(i, j, RayColor(r));
 		}

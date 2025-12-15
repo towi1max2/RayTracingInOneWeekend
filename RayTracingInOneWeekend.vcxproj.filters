@@ -44,5 +44,11 @@
     <ClInclude Include="Source\Raytracing\Ray.h">
       <Filter>Source Files\Raytracing</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Raytracing\Hittable.h">
+      <Filter>Source Files\Raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Raytracing\Sphere.h">
+      <Filter>Source Files\Raytracing</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
