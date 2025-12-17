@@ -16,7 +16,7 @@ public:
         auto discriminant = h * h - a * c;
         if (discriminant < 0)
             return false;
-
+            
         auto sqrtd = std::sqrt(discriminant);
 
         // Find the nearest root that lies in the acceptable range.
@@ -29,7 +29,8 @@ public:
 
         rec.t = root;
         rec.m_Position = r.at(rec.t);
-        rec.m_Normal = (rec.m_Position - m_Center) / m_Radius;
+        vec3 outward_normal = (rec.m_Position - m_Center) / m_Radius;
+        rec.set_face_normal(r, outward_normal);
 
         return true;
     }

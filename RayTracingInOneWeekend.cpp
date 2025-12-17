@@ -1,10 +1,19 @@
 
-#include <iostream>
+
+
+//#include <iostream>
 //#include <string>
 #include <filesystem>
 
-#include "Raytracing/Image.h"
-#include "Raytracing/Ray.h"
+#include "Raytracing/RTWeekend.h"
+
+#include "Raytracing/Hittable.h"
+#include "Raytracing/Hittable_List.h"
+#include "Raytracing/Sphere.h"
+
+//#include "Raytracing/Image.h"
+//#include "Raytracing/Ray.h"
+
 
 void MakeImage()
 {
@@ -39,36 +48,50 @@ void MakeImage()
 	//std::clog << "\n\n" << ImageObject.GetPixelAt(0, 0);
 }
 
-double hit_sphere(const Vector3d& center, double radius, const Ray& r)
-{
-	Vector3d oc = center - r.GetOrigin();
-	auto a = r.GetDirection().length_squared();
-	auto h = dot(r.GetDirection(), oc);
-	auto c = oc.length_squared() - radius * radius;
-	auto discriminant = h * h - a * c;
+//double hit_sphere(const Vector3d& center, double radius, const Ray& r)
+//{
+//	Vector3d oc = center - r.GetOrigin();
+//	auto a = r.GetDirection().length_squared();
+//	auto h = dot(r.GetDirection(), oc);
+//	auto c = oc.length_squared() - radius * radius;
+//	auto discriminant = h * h - a * c;
+//
+//	//no intersection with sphere if < 0
+//	if (discriminant < 0) {
+//		return -1.0;
+//	}
+//	else {
+//		return (h - std::sqrt(discriminant)) / a;
+//	}
+//}
 
-	//no intersection with sphere if < 0
-	if (discriminant < 0) {
-		return -1.0;
-	}
-	else {
-		return (h - std::sqrt(discriminant)) / a;
-	}
-}
+//Color RayColor(const Ray& r)
+//{
+//	auto t = hit_sphere(Vector3d(0, 0, -1), 0.4, r);
+//	if (t > 0.0) {
+//		Vector3d N = unit_vector(r.at(t) - Vector3d(0, 0, -1));
+//		return 0.5 * Color(N.x() + 1, N.y() + 1, N.z() + 1);
+//	}
+//	
+//	return Color(0, 0, 1);
+//
+//	Vector3d UnitDirection = unit_vector(r.GetDirection());//normalize incoming ray direction
+//	double a = 0.5 * (UnitDirection.y() + 1.0);//
+//	return (1.0 - a) * Color { 1.0, 1.0, 1.0 } + a * Color{ 0.5, 0.7, 1.0 };
+//}
 
-Color RayColor(const Ray& r)
+Color Ray_Color(const Ray& r, const Hittable& world)
 {
-	auto t = hit_sphere(Vector3d(0, 0, -1), 0.4, r);
-	if (t > 0.0) {
-		Vector3d N = unit_vector(r.at(t) - Vector3d(0, 0, -1));
-		return 0.5 * Color(N.x() + 1, N.y() + 1, N.z() + 1);
+	hit_record rec;
+	if (world.hit(r, 0, infinity, rec))
+	{
+		return 0.5 * (rec.m_Normal + Color{ 1, 1, 1 });
+		//return 0.5 * (Color{ 1, 1, 1 } + Color{ 1, 1, 1 });
 	}
-	
-	return Color(0, 0, 1);
 
 	Vector3d UnitDirection = unit_vector(r.GetDirection());//normalize incoming ray direction
-	double a = 0.5 * (UnitDirection.y() + 1.0);//
-	return (1.0 - a) * Color { 1.0, 1.0, 1.0 } + a * Color{ 0.5, 0.7, 1.0 };
+		double a = 0.5 * (UnitDirection.y() + 1.0);//
+		return (1.0 - a) * Color { 1.0, 1.0, 1.0 } + a * Color{ 0.5, 0.7, 1.0 };
 }
 
 int main()
@@ -83,6 +106,13 @@ int main()
 
 	Image ImageObject{ ImageWdith, ImageHeight, Color{} };
 
+	//World
+	hittable_list world;
+
+	world.add(make_shared<sphere>(Vector3d(0, 0, -1), 0.25));
+	world.add(make_shared<sphere>(Vector3d(0.5, 0, -1), 0.25));
+	world.add(make_shared<sphere>(Vector3d(-0.75, 0, -1), 0.125));
+	world.add(make_shared<sphere>(Vector3d(0, -100.5, -1), 100));
 
 	/*
 	Virtual plane/camera/viewport Settings : our 2D Window into 3D Space where the image is projected
@@ -128,7 +158,8 @@ int main()
 
 			Ray r{CameraPosition, RayDirection};//Returns a Color from vector data
 
-			ImageObject.SetPixelAt(i, j, RayColor(r));
+			ImageObject.SetPixelAt(i, j, Ray_Color(r,world));
+			//ImageObject.SetPixelAt(i, j, Color{1,0,0});
 		}
 	}
 	std::clog << "\rDone.                      \n\n";

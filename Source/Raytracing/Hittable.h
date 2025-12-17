@@ -2,14 +2,25 @@
 
 #include "Ray.h"
 
-class hit_record {
+class hit_record 
+{
 public:
     Vector3d m_Position;
     Vector3d m_Normal;
     double t;
+    bool front_face;
+
+    void set_face_normal(const Ray& r, const vec3& outward_normal) {
+        // Sets the hit record normal vector.
+        // NOTE: the parameter `outward_normal` is assumed to have unit length.
+
+        front_face = dot(r.GetDirection(), outward_normal) < 0;
+        m_Normal = front_face ? outward_normal : -outward_normal;
+    }
 };
 
-class Hittable {
+class Hittable 
+{
 public:
     virtual ~Hittable() = default;
 

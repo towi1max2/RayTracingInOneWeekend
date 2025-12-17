@@ -50,5 +50,11 @@
     <ClInclude Include="Source\Raytracing\Sphere.h">
       <Filter>Source Files\Raytracing</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Raytracing\Hittable_List.h">
+      <Filter>Source Files\Raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Raytracing\RTWeekend.h">
+      <Filter>Source Files\Raytracing</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
